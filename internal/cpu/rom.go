@@ -1,0 +1,20 @@
+package cpu
+
+import "os"
+
+// Load a rom in the internal memory
+func (c *cpu) LoadRom(p string) error {
+
+	file, err := os.Open(p)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	_, err = file.Read(c.ram[INITIAL_RAM_ADDRESS:])
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
