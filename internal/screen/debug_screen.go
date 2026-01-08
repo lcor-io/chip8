@@ -1,6 +1,8 @@
 package screen
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type DebugScreen struct {
 	pixels [DEFAULT_SCREEN_WIDTH][DEFAULT_SCREEN_HEIGHT]pixel
@@ -22,6 +24,7 @@ func (s *DebugScreen) SetPixel(x int, y int, p pixel) {
 }
 
 func (s *DebugScreen) Render() {
+
 	fmt.Println()
 	for j := range DEFAULT_SCREEN_HEIGHT {
 		for i := range DEFAULT_SCREEN_WIDTH {
