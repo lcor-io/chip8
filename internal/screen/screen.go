@@ -9,6 +9,6 @@ type pixel bool
 
 type Screen interface {
 	Clear()
-	Render()
+	Render() string
 	SetPixel(x int, y int, val pixel)
 }
