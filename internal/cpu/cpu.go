@@ -8,7 +8,7 @@ const (
 	STACK_SIZE       uint8 = 16 //Stack has 16 levels
 )
 
-type cpu struct {
+type CPU struct {
 	ram    [RAM_SIZE]uint8 //Internal memory
 	ram_pc uint16          //RAM counter
 
@@ -22,19 +22,9 @@ type cpu struct {
 	sound_counter uint8 //Counter for sound effect. When value is not zero, a sound signal is emited
 }
 
-// This method is used for decrementing the cpu counters. The system run at 60Hz, and thus this method should be run every 16ms
-func (c *cpu) Count() {
-	if c.sys_counter > 0 {
-		c.sys_counter--
-	}
-	if c.sound_counter > 0 {
-		c.sound_counter--
-	}
-}
+func New() *CPU {
 
-func New() *cpu {
-
-	cpu := cpu{}
+	cpu := CPU{}
 
 	// Initialize RAM
 	for i := range cpu.ram {

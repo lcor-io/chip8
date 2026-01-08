@@ -3,7 +3,7 @@ package cpu
 import "os"
 
 // Load a rom in the internal memory
-func (c *cpu) LoadRom(p string) error {
+func (c *CPU) LoadRom(p string) error {
 
 	file, err := os.Open(p)
 	if err != nil {
