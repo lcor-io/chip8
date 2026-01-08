@@ -20,7 +20,7 @@ func (e *emulator) Render() {
 func Init() *emulator {
 
 	// Initialize screen
-	screen := &screen.DebugScreen{}
+	screen := &screen.TUIScreen{}
 	screen.Clear()
 
 	// Initialize CPU
