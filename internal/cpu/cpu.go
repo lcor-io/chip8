@@ -10,7 +10,6 @@ const (
 	STACK_SIZE       uint8 = 16 //Stack has 16 levels
 
 	DEFAULT_INTERNAL_COUNTER_FREQUENCY = 60 //In Hertz
-
 )
 
 type CPU struct {
