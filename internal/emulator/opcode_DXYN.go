@@ -2,7 +2,7 @@ package emulator
 
 const SPRITE_LENGTH uint8 = 8
 
-func (e *emulator) opcode_DXYN(spriteHeight uint8, xRegister uint8, yRegister uint8) {
+func (e *emulator) opcode_DXYN(xRegister uint8, yRegister uint8, spriteHeight uint8) {
 
 	e.Cpu.V[0xF] = 0 // Set the carry-over register to 0
 
