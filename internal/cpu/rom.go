@@ -11,7 +11,7 @@ func (c *CPU) LoadRom(p string) error {
 	}
 	defer file.Close()
 
-	_, err = file.Read(c.ram[INITIAL_RAM_ADDRESS:])
+	_, err = file.Read(c.Memory[INITIAL_RAM_ADDRESS:])
 	if err != nil {
 		return err
 	}

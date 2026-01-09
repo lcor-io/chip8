@@ -15,14 +15,14 @@ func TestLoadingRom(t *testing.T) {
 	})
 
 	t.Run("Initial address is correct", func(t *testing.T) {
-		if cpu.ram_pc != INITIAL_RAM_ADDRESS {
-			t.Errorf("Incorrect address, [%d] wanted, [%d] found", INITIAL_RAM_ADDRESS, cpu.ram_pc)
+		if cpu.Memory_pc != INITIAL_RAM_ADDRESS {
+			t.Errorf("Incorrect address, [%d] wanted, [%d] found", INITIAL_RAM_ADDRESS, cpu.Memory_pc)
 		}
 	})
 
 	t.Run("First bytes are empty", func(t *testing.T) {
-		for i := range cpu.ram[:INITIAL_RAM_ADDRESS] {
-			if cpu.ram[i] != 0x0 {
+		for i := range cpu.Memory[:INITIAL_RAM_ADDRESS] {
+			if cpu.Memory[i] != 0x0 {
 				t.Errorf("Expecting empty byte at address %d", i)
 			}
 		}
@@ -32,9 +32,9 @@ func TestLoadingRom(t *testing.T) {
 		const ROM_SIZE uint16 = 38
 		const LAST_INSTRUCTION_ADDRESS = INITIAL_RAM_ADDRESS + ROM_SIZE - 1
 
-		firstInstruction := cpu.ram[INITIAL_RAM_ADDRESS]
-		lastInstruction := cpu.ram[LAST_INSTRUCTION_ADDRESS]
-		afterLastInstruction := cpu.ram[LAST_INSTRUCTION_ADDRESS+1]
+		firstInstruction := cpu.Memory[INITIAL_RAM_ADDRESS]
+		lastInstruction := cpu.Memory[LAST_INSTRUCTION_ADDRESS]
+		afterLastInstruction := cpu.Memory[LAST_INSTRUCTION_ADDRESS+1]
 		if firstInstruction == 0x0 || lastInstruction == 0x0 || afterLastInstruction != 0x0 {
 			t.Error("Rom size is not correct")
 		}
