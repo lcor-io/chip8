@@ -7,7 +7,7 @@ func (e *emulator) opcode_9XY0(b1 uint8, b2 uint8) {
 	registerYValue := e.Cpu.V[b2]
 
 	if registerXValue != registerYValue {
-		e.Cpu.Memory_pc += 2
+		e.Cpu.Pc += 2
 	}
 
 }

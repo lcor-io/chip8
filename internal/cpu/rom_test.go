@@ -15,8 +15,8 @@ func TestLoadingRom(t *testing.T) {
 	})
 
 	t.Run("Initial address is correct", func(t *testing.T) {
-		if cpu.Memory_pc != INITIAL_RAM_ADDRESS {
-			t.Errorf("Incorrect address, [%d] wanted, [%d] found", INITIAL_RAM_ADDRESS, cpu.Memory_pc)
+		if cpu.Pc != INITIAL_RAM_ADDRESS {
+			t.Errorf("Incorrect address, [%d] wanted, [%d] found", INITIAL_RAM_ADDRESS, cpu.Pc)
 		}
 	})
 

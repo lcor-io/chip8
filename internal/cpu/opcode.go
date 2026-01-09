@@ -61,9 +61,9 @@ func GetOpcode(c uint16) (opcode, error) {
 
 // Return raw instruction from memory, on 16bits, and increment pointer
 func (c *CPU) GetInstruction() uint16 {
-	firstByte := uint16(c.Memory[c.Memory_pc]) << 8
-	secondByte := uint16(c.Memory[c.Memory_pc+1])
+	firstByte := uint16(c.Memory[c.Pc]) << 8
+	secondByte := uint16(c.Memory[c.Pc+1])
 
-	c.Stack_pc += 2
+	c.Sc += 2
 	return firstByte + secondByte
 }

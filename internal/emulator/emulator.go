@@ -12,9 +12,8 @@ import (
 	sc "github.com/lcor-io/chip8/internal/screen"
 )
 
-const DEFAULT_PROCESSOR_FREQUENCY = 250       //In Hertz
-const DEFAULT_SCREEN_REFRESH_RATE = 60        //In Hertz
-const DEFAULT_INTERNAL_COUNTER_FREQUENCY = 60 //In Hertz
+const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
+const DEFAULT_SCREEN_REFRESH_RATE = 60  //In Hertz
 
 type emulator struct {
 	Cpu    *cpu.CPU
@@ -106,13 +105,13 @@ func (e *emulator) interpret() {
 	case cpu.OPCODE_EXA1:
 		//TODO
 	case cpu.OPCODE_FX07:
-		//TODO
+		e.opcode_FX07(b1)
 	case cpu.OPCODE_FX0A:
 		//TODO
 	case cpu.OPCODE_FX15:
-		//TODO
+		e.opcode_FX15(b1)
 	case cpu.OPCODE_FX18:
-		//TODO
+		e.opcode_FX18(b1)
 	case cpu.OPCODE_FX1E:
 		e.opcode_FX1E(b1)
 	case cpu.OPCODE_FX29:
