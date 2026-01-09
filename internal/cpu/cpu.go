@@ -16,7 +16,7 @@ type CPU struct {
 	I uint16                  //Memory register
 
 	Stack    [STACK_SIZE]uint16
-	Stack_pc int16
+	Stack_pc uint8
 
 	Sys_counter   uint8 //System counter used for game events. Can be set and read
 	Sound_counter uint8 //Counter for sound effect. When value is not zero, a sound signal is emited
