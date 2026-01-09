@@ -6,10 +6,13 @@ import (
 )
 
 var (
-	fgColor = lipgloss.Color("1")
+	fgColor = lipgloss.Color("2")
 
 	emptyPixelStyle = lipgloss.NewStyle()
 	fullPixelStyle  = emptyPixelStyle.Foreground(fgColor)
+	borderStyle     = lipgloss.NewStyle().
+			BorderStyle(lipgloss.RoundedBorder()).
+			BorderForeground(fgColor)
 )
 
 type RefreshScreenMsg struct{}
@@ -27,6 +30,13 @@ func (s *TUIScreen) Clear() {
 			s.pixels[i][j] = false
 		}
 	}
+}
+
+func (s *TUIScreen) GetPixel(x int, y int) pixel {
+	if x >= int(DEFAULT_SCREEN_WIDTH) || y >= int(DEFAULT_SCREEN_HEIGHT) {
+		return false
+	}
+	return s.pixels[x][y]
 }
 
 func (s *TUIScreen) SetPixel(x int, y int, p pixel) {
@@ -50,7 +60,7 @@ func (s *TUIScreen) Render() string {
 		columns = append(columns, lipgloss.JoinVertical(lipgloss.Bottom, column...))
 	}
 
-	screen := lipgloss.JoinHorizontal(lipgloss.Right, columns...)
+	screen := borderStyle.Render(lipgloss.JoinHorizontal(lipgloss.Right, columns...))
 
 	if s.t_width > int(DEFAULT_SCREEN_WIDTH) && s.t_height > int(DEFAULT_SCREEN_HEIGHT) {
 		return lipgloss.Place(s.t_width, s.t_height, lipgloss.Center, lipgloss.Center, screen)
