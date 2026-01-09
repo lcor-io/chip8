@@ -2,7 +2,6 @@ package emulator
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"time"
 
@@ -21,22 +20,19 @@ type emulator struct {
 
 	procTicker   time.Ticker
 	screenTicker time.Ticker
+
+	active bool
 }
 
 func (e *emulator) tuiLoop(p *tea.Program) {
 	for {
 		select {
 		case <-e.screenTicker.C:
-
-			// Random pixels for testing
-			for i := range 64 {
-				for j := range 32 {
-					e.Screen.SetPixel(i, j, rand.Intn(2) == 1)
-				}
-			}
 			p.Send(sc.RefreshScreenMsg{})
 		case <-e.procTicker.C:
-			e.interpret()
+			if e.active {
+				e.interpret()
+			}
 		}
 	}
 }
@@ -125,6 +121,16 @@ func (e *emulator) interpret() {
 	}
 }
 
+func (e *emulator) Start() {
+	e.active = true
+}
+func (e *emulator) Stop() {
+	e.active = false
+}
+func (e *emulator) LoadROM(path string) error {
+	return e.Cpu.LoadRom(path)
+}
+
 func Init() *emulator {
 
 	// Initialize screen
@@ -140,6 +146,8 @@ func Init() *emulator {
 
 		procTicker:   *time.NewTicker(time.Second / DEFAULT_PROCESSOR_FREQUENCY),
 		screenTicker: *time.NewTicker(time.Second / DEFAULT_SCREEN_REFRESH_RATE),
+
+		active: false,
 	}
 
 	// Start in TUI Mode

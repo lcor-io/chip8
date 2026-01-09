@@ -1,11 +1,13 @@
 package main
 
 import (
-	"github.com/lcor-io/chip8/internal/emulator"
+	emu "github.com/lcor-io/chip8/internal/emulator"
 )
 
 func main() {
 
-	emulator.Init()
+	emulator := emu.Init()
+	emulator.LoadROM("../roms/maze.ch8")
+	emulator.Start()
 
 }
