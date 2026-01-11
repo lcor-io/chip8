@@ -26,14 +26,15 @@ type emulator struct {
 }
 
 func (e *emulator) TuiEventLoop(p *tea.Program) {
-	for {
-		select {
-		case <-e.screenTicker.C:
-			p.Send(screen.RefreshScreenMsg{})
-		case <-e.procTicker.C:
-			if e.active {
-				e.interpret()
-			}
+	for range e.screenTicker.C {
+		p.Send(screen.RefreshScreenMsg{})
+	}
+}
+
+func (e *emulator) cpuLoop() {
+	for range e.procTicker.C {
+		if e.active {
+			e.interpret()
 		}
 	}
 }
@@ -150,6 +151,9 @@ func Init() *emulator {
 
 		active: false,
 	}
+
+	// Launch the CPU
+	go e.cpuLoop()
 
 	return &e
 }
