@@ -11,7 +11,7 @@ import (
 func main() {
 
 	emulator := emu.Init()
-	emulator.LoadROM("roms/space_invaders.ch8")
+	emulator.LoadROM("roms/maze.ch8")
 
 	// Start in TUI Mode
 	p := tea.NewProgram(emulator, tea.WithAltScreen(), tea.WithMouseCellMotion())
