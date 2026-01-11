@@ -7,13 +7,13 @@ func (c *CPU) LoadRom(p string) error {
 
 	file, err := os.Open(p)
 	if err != nil {
-		return err
+		panic(err)
 	}
 	defer file.Close()
 
 	_, err = file.Read(c.Memory[INITIAL_RAM_ADDRESS:])
 	if err != nil {
-		return err
+		panic(err)
 	}
 
 	return nil
