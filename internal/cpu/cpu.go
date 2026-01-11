@@ -28,7 +28,7 @@ type CPU struct {
 
 	Delay_timer   uint8 //System counter used for game events. Can be set and read
 	Sound_timer   uint8 //Counter for sound effect. When value is not zero, a sound signal is emited
-	signalsTicker time.Ticker
+	signalsTicker *time.Ticker
 
 	// below is used for tui rendering
 	ready    bool
@@ -164,8 +164,7 @@ func New() *CPU {
 	cpu.initializeFonts()
 
 	// Launch the internal signal loop
-	cpu.Delay_timer = 0
-	cpu.Sound_timer = 0
+	cpu.signalsTicker = time.NewTicker(time.Second / DEFAULT_INTERNAL_COUNTER_FREQUENCY)
 	go cpu.signalLoop()
 
 	return &cpu
