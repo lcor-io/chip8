@@ -64,6 +64,6 @@ func (c *CPU) GetInstruction() uint16 {
 	firstByte := uint16(c.Memory[c.Pc]) << 8
 	secondByte := uint16(c.Memory[c.Pc+1])
 
-	c.Sc += 2
+	c.Pc += 2
 	return firstByte + secondByte
 }

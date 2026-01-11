@@ -9,14 +9,14 @@ import (
 )
 
 const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
-const DEFAULT_SCREEN_REFRESH_RATE = 1   //In Hertz
+const DEFAULT_SCREEN_REFRESH_RATE = 60  //In Hertz
 
 type emulator struct {
 	Cpu    *cpu.CPU
 	Screen screen.Screen
 
-	procTicker   time.Ticker
-	screenTicker time.Ticker
+	procTicker   *time.Ticker
+	screenTicker *time.Ticker
 
 	active bool
 
@@ -145,8 +145,8 @@ func Init() *emulator {
 		Cpu:    cpu,
 		Screen: screen,
 
-		procTicker:   *time.NewTicker(time.Second / DEFAULT_PROCESSOR_FREQUENCY),
-		screenTicker: *time.NewTicker(time.Second / DEFAULT_SCREEN_REFRESH_RATE),
+		procTicker:   time.NewTicker(time.Second / DEFAULT_PROCESSOR_FREQUENCY),
+		screenTicker: time.NewTicker(time.Second / DEFAULT_SCREEN_REFRESH_RATE),
 
 		active: false,
 	}

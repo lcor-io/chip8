@@ -1,8 +1,6 @@
 package screen
 
 import (
-	"math/rand"
-
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
@@ -57,11 +55,11 @@ func (s *Tui) Init() tea.Cmd {
 func (s *Tui) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmds []tea.Cmd
 
-	for i := range SCREEN_WIDTH {
-		for j := range SCREEN_HEIGHT {
-			s.SetPixel(int(i), int(j), rand.Intn(2) == 1)
-		}
-	}
+	// for i := range SCREEN_WIDTH {
+	// 	for j := range SCREEN_HEIGHT {
+	// 		s.SetPixel(int(i), int(j), rand.Intn(2) == 1)
+	// 	}
+	// }
 
 	return s, tea.Batch(cmds...)
 }
