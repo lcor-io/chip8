@@ -1,18 +1,15 @@
 package emulator
 
 import (
-	"fmt"
-	"os"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/lcor-io/chip8/internal/cpu"
 	"github.com/lcor-io/chip8/internal/screen"
-	sc "github.com/lcor-io/chip8/internal/screen"
 )
 
 const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
-const DEFAULT_SCREEN_REFRESH_RATE = 60  //In Hertz
+const DEFAULT_SCREEN_REFRESH_RATE = 1   //In Hertz
 
 type emulator struct {
 	Cpu    *cpu.CPU
@@ -22,13 +19,17 @@ type emulator struct {
 	screenTicker time.Ticker
 
 	active bool
+
+	t_width  int
+	t_height int
+	t_ready  bool
 }
 
-func (e *emulator) tuiLoop(p *tea.Program) {
+func (e *emulator) TuiEventLoop(p *tea.Program) {
 	for {
 		select {
 		case <-e.screenTicker.C:
-			p.Send(sc.RefreshScreenMsg{})
+			p.Send(screen.RefreshScreenMsg{})
 		case <-e.procTicker.C:
 			if e.active {
 				e.interpret()
@@ -133,14 +134,14 @@ func (e *emulator) LoadROM(path string) error {
 
 func Init() *emulator {
 
-	// Initialize screen
-	screen := &sc.TUIScreen{}
-	screen.Clear()
-
 	// Initialize CPU
 	cpu := cpu.New()
 
-	emulator := emulator{
+	// Initialize screen
+	screen := &screen.Tui{}
+	screen.Clear()
+
+	e := emulator{
 		Cpu:    cpu,
 		Screen: screen,
 
@@ -150,13 +151,5 @@ func Init() *emulator {
 		active: false,
 	}
 
-	// Start in TUI Mode
-	p := tea.NewProgram(screen, tea.WithAltScreen())
-	go emulator.tuiLoop(p)
-	if _, err := p.Run(); err != nil {
-		fmt.Printf("An error occured at launch")
-		os.Exit(1)
-	}
-
-	return &emulator
+	return &e
 }

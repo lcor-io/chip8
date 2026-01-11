@@ -1,6 +1,10 @@
 package cpu
 
-import "time"
+import (
+	"time"
+
+	"github.com/charmbracelet/bubbles/viewport"
+)
 
 const (
 	RAM_SIZE            uint16 = 4_096 //Ram size is set to 4kb
@@ -25,6 +29,10 @@ type CPU struct {
 	Delay_timer   uint8 //System counter used for game events. Can be set and read
 	Sound_timer   uint8 //Counter for sound effect. When value is not zero, a sound signal is emited
 	signalsTicker time.Ticker
+
+	// below is used for tui rendering
+	ready    bool
+	viewport viewport.Model
 }
 
 // Signal loop is decreasing internal counters

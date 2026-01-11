@@ -5,7 +5,7 @@ import (
 )
 
 type DebugScreen struct {
-	pixels [DEFAULT_SCREEN_WIDTH][DEFAULT_SCREEN_HEIGHT]pixel
+	pixels [SCREEN_WIDTH][SCREEN_HEIGHT]Pixel
 }
 
 func (s *DebugScreen) Clear() {
@@ -16,8 +16,8 @@ func (s *DebugScreen) Clear() {
 	}
 }
 
-func (s *DebugScreen) SetPixel(x int, y int, p pixel) {
-	if x >= int(DEFAULT_SCREEN_WIDTH) || y >= int(DEFAULT_SCREEN_HEIGHT) {
+func (s *DebugScreen) SetPixel(x int, y int, p Pixel) {
+	if x >= int(SCREEN_WIDTH) || y >= int(SCREEN_HEIGHT) {
 		return
 	}
 	s.pixels[x][y] = p
@@ -26,8 +26,8 @@ func (s *DebugScreen) SetPixel(x int, y int, p pixel) {
 func (s *DebugScreen) Render() {
 
 	fmt.Println()
-	for j := range DEFAULT_SCREEN_HEIGHT {
-		for i := range DEFAULT_SCREEN_WIDTH {
+	for j := range SCREEN_HEIGHT {
+		for i := range SCREEN_WIDTH {
 			if s.pixels[i][j] {
 				fmt.Print("*")
 			} else {
