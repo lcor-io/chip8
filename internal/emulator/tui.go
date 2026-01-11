@@ -18,7 +18,8 @@ func (e *emulator) View() string {
 
 	screenView := e.Screen.View()
 	cpuView := e.Cpu.View()
-	completeView := lipgloss.JoinHorizontal(lipgloss.Top, screenView, cpuView)
+	keyboardView := e.Keyboard.View()
+	completeView := lipgloss.JoinHorizontal(lipgloss.Top, keyboardView, screenView, cpuView)
 
 	return lipgloss.Place(e.t_width, e.t_height, 0.5, 0.5, completeView)
 }
