@@ -9,8 +9,9 @@ import (
 	"github.com/lcor-io/chip8/internal/screen"
 )
 
-const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
-const DEFAULT_SCREEN_REFRESH_RATE = 60  //In Hertz
+// const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
+const DEFAULT_PROCESSOR_FREQUENCY = 1000 //In Hertz
+const DEFAULT_SCREEN_REFRESH_RATE = 60   //In Hertz
 
 type emulator struct {
 	Cpu      *cpu.CPU
@@ -138,7 +139,7 @@ func (e *emulator) LoadROM(path string) error {
 func Init() *emulator {
 
 	// Initialize Keyboard
-	keyboard := &keyboard.Keyboard{}
+	keyboard := keyboard.New()
 
 	// Initialize CPU
 	cpu := cpu.New()
