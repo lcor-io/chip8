@@ -42,11 +42,13 @@ func (e *emulator) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	var cmdCpu tea.Cmd
 	var cmdScreen tea.Cmd
+	var cmdKeyboard tea.Cmd
 	var sc = e.Screen.(*screen.Tui)
 
 	_, cmdCpu = e.Cpu.Update(msg)
 	_, cmdScreen = sc.Update(msg)
-	cmds = append(cmds, cmdCpu, cmdScreen)
+	_, cmdKeyboard = e.Keyboard.Update(msg)
+	cmds = append(cmds, cmdCpu, cmdScreen, cmdKeyboard)
 
 	return e, tea.Batch(cmds...)
 }

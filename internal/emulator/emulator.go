@@ -5,6 +5,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/lcor-io/chip8/internal/cpu"
+	"github.com/lcor-io/chip8/internal/keyboard"
 	"github.com/lcor-io/chip8/internal/screen"
 )
 
@@ -12,13 +13,14 @@ const DEFAULT_PROCESSOR_FREQUENCY = 250 //In Hertz
 const DEFAULT_SCREEN_REFRESH_RATE = 60  //In Hertz
 
 type emulator struct {
-	Cpu    *cpu.CPU
-	Screen screen.Screen
+	Cpu      *cpu.CPU
+	Screen   screen.Screen
+	Keyboard *keyboard.Keyboard
 
 	procTicker   *time.Ticker
 	screenTicker *time.Ticker
 
-	active bool
+	running bool
 
 	t_width  int
 	t_height int
@@ -33,7 +35,7 @@ func (e *emulator) TuiEventLoop(p *tea.Program) {
 
 func (e *emulator) cpuLoop() {
 	for range e.procTicker.C {
-		if e.active {
+		if e.running {
 			e.interpret()
 		}
 	}
@@ -124,16 +126,19 @@ func (e *emulator) interpret() {
 }
 
 func (e *emulator) Start() {
-	e.active = true
+	e.running = true
 }
 func (e *emulator) Stop() {
-	e.active = false
+	e.running = false
 }
 func (e *emulator) LoadROM(path string) error {
 	return e.Cpu.LoadRom(path)
 }
 
 func Init() *emulator {
+
+	// Initialize Keyboard
+	keyboard := &keyboard.Keyboard{}
 
 	// Initialize CPU
 	cpu := cpu.New()
@@ -143,13 +148,14 @@ func Init() *emulator {
 	screen.Clear()
 
 	e := emulator{
-		Cpu:    cpu,
-		Screen: screen,
+		Cpu:      cpu,
+		Screen:   screen,
+		Keyboard: keyboard,
 
 		procTicker:   time.NewTicker(time.Second / DEFAULT_PROCESSOR_FREQUENCY),
 		screenTicker: time.NewTicker(time.Second / DEFAULT_SCREEN_REFRESH_RATE),
 
-		active: false,
+		running: false,
 	}
 
 	// Launch the CPU
