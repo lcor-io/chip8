@@ -16,17 +16,16 @@ func (k *Keyboard) View() string {
 
 func (k *Keyboard) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
-	var cmds []tea.Cmd
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
 		case "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b", "c", "d", "e", "f":
-			key, _ := strconv.ParseInt(msg.String(), 16, 8)
+			key, _ := strconv.ParseInt(msg.String(), 16, 8) // Convert keypress to it's hexadecimal value
 			if key > 16 {
 				return k, nil
 			}
-			k.keys[key] = true
+			k.Keys[key] = true // Set the key as pressed on the keyboard
 		}
 	}
-	return k, tea.Batch(cmds...)
+	return k, nil
 }

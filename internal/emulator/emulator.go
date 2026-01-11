@@ -101,13 +101,13 @@ func (e *emulator) interpret() {
 	case cpu.OPCODE_DXYN:
 		e.opcode_DXYN(b1, b2, b3)
 	case cpu.OPCODE_EX9E:
-		//TODO
+		e.opcode_EX9E(b1)
 	case cpu.OPCODE_EXA1:
-		//TODO
+		e.opcode_EXA1(b1)
 	case cpu.OPCODE_FX07:
 		e.opcode_FX07(b1)
 	case cpu.OPCODE_FX0A:
-		//TODO
+		e.opcode_FX0A(b1)
 	case cpu.OPCODE_FX15:
 		e.opcode_FX15(b1)
 	case cpu.OPCODE_FX18:
