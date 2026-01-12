@@ -32,6 +32,9 @@ func (e *emulator) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "q":
 			return e, tea.Quit
+		case "r":
+			e.Restart()
+			return e, nil
 		}
 	case tea.WindowSizeMsg:
 		if !e.t_ready {

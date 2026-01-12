@@ -4,7 +4,7 @@ import "time"
 
 const (
 	KEYBOARD_SIZE = 16
-	DEBOUNCE_TIME = 100 // In ms
+	DEBOUNCE_TIME = 10 // In ms
 )
 
 type Keyboard struct {
